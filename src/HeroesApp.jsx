@@ -1,6 +1,5 @@
 
 import Button from '@mui/material/Button';
-import PrimarySearchAppBar from './shared/components/NavBar';
 import { AppRouter } from './router/AppRouter';
 
 export const HeroesApp = () => {
