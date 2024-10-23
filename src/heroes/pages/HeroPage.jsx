@@ -1,13 +1,16 @@
 import { Navigate, useParams } from "react-router";
 import { HeroCard } from "../components/HeroCard";
 import { getHeroesById } from "../helpers/getHeroById";
+import { useMemo } from "react";
 
 export const HeroPage = () => {
 
   const params = useParams();
   const heroId = params.id;
+  
+  const hero = useMemo(() => getHeroesById(heroId), [heroId]);
 
-  const hero = getHeroesById(heroId);
+  // const hero = getHeroesById(heroId);
   // console.log(hero);
 
   if (!hero) {
@@ -28,6 +31,5 @@ export const HeroPage = () => {
         />
       </div>
     </>
-    
   )
 }

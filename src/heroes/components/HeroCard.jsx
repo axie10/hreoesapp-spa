@@ -1,10 +1,11 @@
 // import {} from '../../assets/heroes/ironman.jpg';
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // creamos un componente para mostrar los personajes que no son el alter_ego
-const CaracterByHero = ({alter_ego, characters}) => {
-    if(alter_ego === characters) return (<></>);
+const CaracterByHero = ({ alter_ego, characters }) => {
+    if (alter_ego === characters) return (<></>);
     return <p>{characters}</p>
 };
 
@@ -18,14 +19,28 @@ export const HeroCard = ({
 }) => {
 
     const heroesImages = `/assets/heroes/${id}.jpg`;
+    // Hook para obtener la ruta actual de la aplicacion
+    // y poder jugar si queremos que nuestra aplicacion
+    // haga una cosa u otra en funcion de la ruta
+    const location = useLocation();
+
+    // const navigate = useNavigate();
+    // const onNavigateBack = () => {
+    //     navigate(`/`,{});
+    // }
 
 
     return (
 
         <>
-            <div className="card m-3" style={{ width: '18rem' }}>
+            <div className="card m-3 animate__animated animate__pulse" style={{ width: '18rem' }}>
 
-                <div>
+                <div 
+                    // NOTA INTERESANTE:
+                    // Estamos aplicando diferentes animaciones en funcion de la ruta en la que esta nuestra aplicacion
+                    className={ location.pathname === `/hero/${id}` ? 
+                        'animate__animated animate__bounce' : 
+                        'animate__animated animate__pulse' }>
                     <img
                         className="card-img-top"
                         src={heroesImages}
@@ -47,9 +62,28 @@ export const HeroCard = ({
                     <p className="card-text">
                         <small>{first_appearance}</small>
                     </p>
-                    <Link to={`/hero/${ id }`} className="btn btn-primary">Más Info</Link>
+
+                    {/* <Link to={`/hero/${id}`} className="btn btn-primary">Más Info</Link> */}
+
+                    {/* NOTA INTERESANTE:
+                     * Al utilizar la misma tarjeta para diferentes ventanas,
+                        estoy colocando una condicion que en funcion de la ruta que
+                        se encuentre, se muestra el boton de mas info o no. 
+                    */}
+                    
+                    {
+                        location.pathname === `/hero/${id}` ? (
+                            <Link to={`/search?q=${superhero}`} className="btn btn-outline-success">Regresar</Link>
+                            // Otra manera de redirigir a la pagina principal
+                            // <button className="btn btn-outline-success" onClick={onNavigateBack}>Regresar</button>
+                        ) :
+                        (
+                            <Link to={`/hero/${id}`} className="btn btn-primary">Más Info</Link>
+                        )
+                    }
+
                 </div>
-                
+
             </div>
         </>
     )
