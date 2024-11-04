@@ -16,6 +16,7 @@ export const LoginPage = () => {
 
     onLogin('Pepe');
 
+    //pasamos aqui la variable de la ruta guardada en el local storage
     navigate( lastPath, {
       replace: true,  
     });
