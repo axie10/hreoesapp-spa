@@ -9,7 +9,7 @@ export const SearchPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log({location})
+  // console.log({location})
 
   // desestructuramos el query string para obtener el 
   // valor de la busqueda usando la libreria query-string

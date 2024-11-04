@@ -1,13 +1,22 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router";
+import { AuthContext } from "../context/AuthContext";
 
 
 export const LoginPage = () => {
 
-
+  const { onLogin } = useContext( AuthContext )
   const navigate = useNavigate();
 
+  // Recuperamos la ultima ruta donde estaba el usuario antes de cerrar sesion
+  // del local storage y la guardamos en una constante para pasarla a la funcion navigate
+  const lastPath = localStorage.getItem('lastPath') || '/';
+
   const onBack = () => {
-    navigate('/', {
+
+    onLogin('Pepe');
+
+    navigate( lastPath, {
       replace: true,  
     });
   }
